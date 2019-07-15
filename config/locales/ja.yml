@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    attributes:
+      agent:
+        statuses:
+          enabled: "削除済"
+          disabled: "下書き"

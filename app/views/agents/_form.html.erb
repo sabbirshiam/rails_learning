@@ -1,0 +1,35 @@
+<%= form_with(scope: :agent, model: @agent, url: url, local: true) do |form| %>
+
+<% if @agent.nil? && @agent.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@agent.errors.count, "error") %> prohibited
+        this agent from being saved:
+      </h2>
+      <ul>
+        <% @agent.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </p>
+ 
+  <p>
+    <%= form.label :image %><br>
+    <%= form.file_field :image , required: true%>
+  </p>
+
+    <p>
+    <%= form.label :status %><br>
+    <%= form.select(:status , options_for_select(Agent.statuses.map { |key, value| [Agent.human_enum_name(:status, key.to_s), value]}, @agent.disabled_at.nil? ? 1 : 2), include_blank: true ) %>
+    <!-- <%= form.select(:status , options_for_select([['enabled', 1], ['disabled', 2]], @agent.disabled_at.nil? ? 1 : 2), include_blank: true ) %> -->
+  </p>
+ 
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
